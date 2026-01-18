@@ -1,55 +1,31 @@
-import ollama
-from llm.rag import retrieve_docs  
+from langchain_community.llms import Ollama
+from llm.rag import retrieve_context
 
-SYSTEM_PROMPT = """
-You are a cybersecurity awareness assistant.
+llm = Ollama(model="llama3.1")
 
-Your task:
-1. Determine if the email is phishing or legitimate.
-2. Identify phishing flags from this list:
-F1 Urgency
-F2 Impersonation
-F3 Suspicious Link
-F4 Request for Credentials
-F5 Generic Greeting
-F6 Unexpected Attachment
-F7 Grammar Errors
-F8 Financial Request
-F9 Threatening Language
-F10 Too Good To Be True
+def analyze_email_raw(email_text: str) -> str:
+    context = retrieve_context(email_text)
 
-3. Use the provided context to justify your decision.
+    prompt = f"""
+You are a cybersecurity phishing detection system.
 
-Output MUST be valid JSON only:
-{
-  "is_phishing": true/false,
-  "flags": ["F1", "F3"],
-  "explanation": "..."
-}
-"""
-def analyze_email(email_text):
-    # Step 1: retrieve relevant docs from RAG
-    context_docs = retrieve_docs(email_text)
+Rules:
+- Respond ONLY in valid JSON.
+- Do not add text outside JSON.
 
-    context = "\n\n".join([doc.page_content for doc in context_docs])
+Use this exact format:
+{{
+  "is_phishing": true or false,
+  "phishing_type": "",
+  "flags": [],
+  "confidence": 0.0,
+  "explanation": ""
+}}
 
-    messages = [
-        {"role": "system", "content": SYSTEM_PROMPT},
-        {
-            "role": "user",
-            "content": f"""
-Email:
-{email_text}
-
-Relevant knowledge:
+Phishing reference examples:
 {context}
+
+Email to analyze:
+{email_text}
 """
-        }
-    ]
-
-    response = ollama.chat(
-        model="llama3.1",
-        messages=messages
-    )
-
-    return response["message"]["content"]
+    return llm.invoke(prompt)

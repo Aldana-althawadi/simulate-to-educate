@@ -1,0 +1,11 @@
+﻿Flag ID,Flag Name,Description,Example
+F1,Urgency / Pressure,Forces immediate action to trick victim,"“Your account will be locked within 12 hours, act now!”"
+F2,Impersonation / Spoofed Sender,Pretends to be a trusted brand or person,Sender: support@faceb0ok.com
+F3,Suspicious Link,Displayed URL is different from actual URL,Displayed: www.paypal.com → Actual: www.paypa1.com
+F4,Request for Credentials,"Asks for passwords, OTP, or PIN",“Please enter your password to confirm your account”
+F5,Generic Greeting,No personalization in greeting,“Dear User” or “Hello Customer”
+F6,Unexpected Attachment,Asks to open unsolicited attachment,“Please see attached invoice.pdf”
+F7,Grammar / Spelling Errors,"Poor language quality, inconsistent with legitimate brand","“Unusual login activity detected, pleas verify”"
+F8,Financial Request,"Asks for money, payment, or bank info",“Please pay the attached invoice today”
+F9,Threatening Language,Threats of account suspension or legal action,“Failure to comply will result in termination”
+F10,Too Good to Be True,Promises rewards or prizes,“Congratulations! You won a $1000 gift card”

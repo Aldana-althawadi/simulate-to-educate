@@ -1,0 +1,27 @@
+<h2>Outlook Inbox (Simulation)</h2>
+
+{% for e in emails %}
+  <form action="/analyze" method="post" style="margin-bottom: 12px;">
+
+    <!-- Identify which email was clicked -->
+    <input type="hidden" name="email_id" value="{{ e.id }}">
+
+    <!-- Ground truth labels -->
+    <input type="hidden" name="expected_is_phishing" value="{{ e.expected_is_phishing }}">
+    <input type="hidden" name="expected_type" value="{{ e.expected_type }}">
+    <input type="hidden" name="expected_flags" value="{{ e.expected_flags | join(';') }}">
+
+    <!-- The actual email content -->
+    <input type="hidden" name="email_text" value="Subject: {{ e.subject }}
+From: {{ e.sender }}
+
+{{ e.body }}">
+
+    <button type="submit">{{ e.title }}</button>
+
+    <div style="font-size: 12px; opacity: 0.8;">
+      From: {{ e.sender }} | Subject: {{ e.subject }} | Difficulty: {{ e.difficulty }}
+    </div>
+
+  </form>
+{% endfor %}

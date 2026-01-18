@@ -55,3 +55,10 @@ for i, r in enumerate(results, 1):
 
 def retrieve_docs(query, k=3):
     return vector_db.similarity_search(query, k=k)
+
+
+# retrival function
+def retrieve_context(query, k=3):
+    results = vector_db.similarity_search(query, k=k)
+    return "\n".join([doc.page_content for doc in results])
+

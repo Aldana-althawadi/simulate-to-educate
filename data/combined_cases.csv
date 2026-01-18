@@ -1,0 +1,11 @@
+﻿Case ID,Phishing Type,Email Subject,Sender,Detected Flags,Notes,Reference
+C1,Credential Theft,Account Verification Required,support@faceb0ok.com,"F1, F2, F3, F4",Fake Facebook login page; urges immediate login,"OWASP, Google Security"
+C2,Brand Impersonation,Security Alert,security@paypal-secure.com,"F2, F3, F9","Pretends to be PayPal, threatening language","OWASP, Microsoft Security"
+C3,Urgency / Fear,Immediate Action Required,noreply@outlook-alerts.com,"F1, F9",Threatening tone; pressure to act fast,"NIST, OWASP"
+C4,Financial Request,Invoice Attached,billing@company-payments.com,"F6, F8",Fake invoice asking for payment,"ENISA, NIST"
+C5,Suspicious Link,Verify Your Email,secure-login@random.com,"F3, F4",Click link to “verify” account,"OWASP, Google Security"
+C6,Generic Greeting,Account Notice,noreply@service.com,"F5, F4",Uses “Dear User” instead of name,OWASP
+C7,Unexpected Attachment,Payment Receipt,billing@company-payments.com,F6,Attachment named receipt.zip; may contain malware,ENISA
+C8,Grammar / Spelling Errors,Unusal Login Actvity,alerts@service.com,"F7, F1",Poor grammar/spelling; urgency tactics,NIST
+C9,Business Email Compromise,Urgent Transfer,ceo@company.com,"F1, F8",Impersonates company exec; requests funds,"ENISA, NIST"
+C10,Too Good to Be True,Congratulations Winner!,rewards@promo-gift.com,"F10, F1",Fake gift card offer,"OWASP, ENISA"

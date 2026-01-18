@@ -1,0 +1,24 @@
+<h2>Phishing Analysis Result</h2>
+
+<h3>Email</h3>
+<pre>{{ email_text }}</pre>
+
+<h3>Model Output</h3>
+<ul>
+  <li><b>Is phishing:</b> {{ result.is_phishing }}</li>
+  <li><b>Phishing type:</b> {{ result.phishing_type }}</li>
+  <li><b>Confidence:</b> {{ result.confidence }}</li>
+  <li><b>Flags:</b> {{ result.flags | join(", ") }}</li>
+</ul>
+
+<h3>Expected (Ground Truth)</h3>
+<ul>
+  <li><b>Expected phishing:</b> {{ expected_is_phishing }}</li>
+  <li><b>Expected type:</b> {{ expected_type }}</li>
+  <li><b>Expected flags:</b> {{ expected_flags }}</li>
+</ul>
+
+<h3>Explanation</h3>
+<p>{{ result.explanation }}</p>
+
+<a href="/">Back to Inbox</a>
