@@ -17,9 +17,8 @@ Primary grounding sources (authoritative):
 """
 
 EMAILS = [
-    # -------------------------
+   
     # PHISHING (Obvious)
-    # -------------------------
 
     # E1: Brand impersonation + urgency + suspicious link + threat language
     # Grounding: common phishing indicators: urgency + suspicious links + impersonation patterns
@@ -76,9 +75,8 @@ EMAILS = [
         "difficulty": "easy"
     },
 
-    # -------------------------
+   
     # PHISHING (More Realistic)
-    # -------------------------
 
     # E4: Internal-portal / HR lure + credential request + generic greeting
     # Grounding: generic greeting + credential request are common social engineering indicators (CISA). :contentReference[oaicite:10]{index=10}
@@ -137,9 +135,7 @@ EMAILS = [
         "difficulty": "hard"
     },
 
-    # -------------------------
     # PHISHING (Language / Errors)
-    # -------------------------
 
     # E7: Typos/grammar errors + urgency + suspicious link
     # Grounding: CISA highlights common phishing indicators like poor grammar and suspicious links. :contentReference[oaicite:14]{index=14}
@@ -158,9 +154,8 @@ EMAILS = [
         "difficulty": "easy"
     },
 
-    # -------------------------
+
     # LEGITIMATE EMAILS
-    # -------------------------
 
     # E8-E10: Legitimate internal/normal service messages included to measure false positives.
     # Grounding: NIST/CISA recommend verifying context and avoiding over-trusting “security-looking” messages. :contentReference[oaicite:15]{index=15}
@@ -208,9 +203,8 @@ EMAILS = [
         "difficulty": "medium"
     },
 
-    # -------------------------
+    
     # BORDERLINE / GRAY CASES
-    # -------------------------
 
     # E11: Legit security alert style (borderline) to test over-flagging.
     # Grounding: NIST discusses phishing as social engineering; legitimate alerts exist too,
