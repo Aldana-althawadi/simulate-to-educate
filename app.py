@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request
 from llm.pipeline import analyze_email_pipeline
-from llm.logger import log_event, now_iso
 from data.emails import EMAILS
 from flask import jsonify
 from mail.mail_reader import read_maildir
@@ -61,7 +60,7 @@ def game_start():
     session["answered"] = []
     session["student_answers"] = {}
 
-    # Show the game start page (instead of immediately going to inbox)
+    # Show the game start page instead of immediately going to inbox
     return render_template("game_start.html")
 
 
@@ -116,7 +115,7 @@ def real_email(filename):
     if not selected_email:
         return "Email not found", 404
 
-    # NEW: extract scenario ID from subject
+    # extract scenario ID from subject
     case_id = extract_case_id(selected_email["subject"])
 
     if not case_id:
@@ -125,7 +124,7 @@ def real_email(filename):
     return render_template(
         "real_email.html",
         email=selected_email,
-        case_id=case_id,   # NEW
+        case_id=case_id,   
         username=username
     )
 
@@ -248,13 +247,13 @@ def real_feedback(case_id):
     student_answer = student_answers.get(case_id)
     expected_answer = "phishing" if scenario["expected_is_phishing"] else "legitimate"
 
-    # Build one email text string for the AI pipeline
+    # one email text string for the AI pipeline
     email_text = f"""From: {scenario['sender']}
 Subject: {scenario['subject']}
 
 {scenario['body']}"""
 
-    # Run AI analysis
+    # AI analysis
     analysis = analyze_email_pipeline(email_text)
 
     ai_answer = "phishing" if analysis.get("is_phishing") else "legitimate"
