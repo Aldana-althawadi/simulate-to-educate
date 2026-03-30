@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raven Organization | Email Challenge</title>
+  <style>
+    :root {
+      --bg: #09090f;
+      --bg-soft: #11111a;
+      --panel: rgba(18, 18, 32, 0.88);
+      --panel-2: rgba(25, 25, 42, 0.9);
+      --line: rgba(111, 117, 255, 0.22);
+      --text: #eef2ff;
+      --muted: #a8b0d3;
+      --blue: #5b8cff;
+      --purple: #8b5cf6;
+      --cyan: #38bdf8;
+      --shadow: 0 0 30px rgba(91, 140, 255, 0.18);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(91, 140, 255, 0.22), transparent 28%),
+        radial-gradient(circle at top right, rgba(139, 92, 246, 0.18), transparent 25%),
+        linear-gradient(180deg, #07070d 0%, #0c0c14 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 22px;
+      background: rgba(13, 13, 24, 0.78);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .brand p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.02);
+      transition: 0.2s ease;
+      font-size: 14px;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      border: 1px solid var(--line);
+      background: rgba(91, 140, 255, 0.08);
+      box-shadow: 0 0 18px rgba(91, 140, 255, 0.12);
+    }
+
+    .hero {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+    }
+
+    .hero-left,
+    .hero-right,
+    .section-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-left {
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left::after {
+      content: "";
+      position: absolute;
+      inset: auto -90px -90px auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(91,140,255,0.2), transparent 65%);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #dbe7ff;
+      background: rgba(91, 140, 255, 0.12);
+      border: 1px solid rgba(91, 140, 255, 0.3);
+      padding: 8px 12px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+    }
+
+    .hero-left h2 {
+      margin: 0 0 14px;
+      font-size: 46px;
+      line-height: 1.05;
+    }
+
+    .hero-left .sub {
+      font-size: 18px;
+      color: var(--muted);
+      margin-bottom: 18px;
+      line-height: 1.7;
+    }
+
+    .hero-buttons {
+      margin-top: 24px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      text-decoration: none;
+      padding: 13px 18px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 15px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: white;
+      box-shadow: 0 0 24px rgba(91, 140, 255, 0.28);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .hero-right {
+      padding: 24px;
+    }
+
+    .hero-right h3 {
+      margin-top: 0;
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+
+    .steps {
+      display: grid;
+      gap: 12px;
+    }
+
+    .step {
+      background: var(--panel-2);
+      border: 1px solid rgba(111, 117, 255, 0.18);
+      border-radius: 16px;
+      padding: 14px 16px;
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .step span {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .stats {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(111, 117, 255, 0.14);
+      border-radius: 14px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .stat h4 {
+      margin: 0 0 6px;
+      font-size: 22px;
+    }
+
+    .stat p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .showcase, .grid {
+      margin-top: 24px;
+    }
+
+    .showcase {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .showcase h3 {
+      margin-top: 0;
+      margin-bottom: 16px;
+      font-size: 24px;
+    }
+
+    .showcase p {
+      color: var(--muted);
+      margin-bottom: 18px;
+      line-height: 1.7;
+    }
+
+    .showcase img {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid rgba(111,117,255,0.18);
+      display: block;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .section-card {
+      padding: 24px;
+    }
+
+    .section-card h3 {
+      margin-top: 0;
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .section-card p {
+      color: var(--muted);
+      margin-bottom: 18px;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .mini-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(111, 117, 255, 0.14);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+
+    .mini-card strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .mini-card span {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .footer {
+      margin-top: 26px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      padding-bottom: 18px;
+    }
+
+    @media (max-width: 980px) {
+      .hero, .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-left h2 {
+        font-size: 38px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <h1>Raven Organization</h1>
+        <p>Email Challenge Portal</p>
+      </div>
+
+      <nav class="nav">
+        <a href="{{ url_for('home') }}" class="active">Home</a>
+        <a href="{{ url_for('profiles') }}">Profiles</a>
+        <a href="{{ url_for('rules') }}">Rules</a>
+        <a href="{{ url_for('levels') }}">Levels</a>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-left">
+        <div class="badge">⚡ Thunderbird-Based AI Challenge</div>
+        <h2>Write smarter emails.<br>Progress through every level.</h2>
+        <p class="sub">
+          Welcome to the Raven Organization challenge portal. Your mission is to communicate
+          with organization staff through Thunderbird and satisfy the hidden requirements of
+          each active case.
+        </p>
+        <p class="sub">
+          Every successful email reveals a flag and advances the challenge. Every failed email
+          triggers a realistic reply that pushes you to rewrite and try again.
+        </p>
+        <p class="sub">
+          The game now includes <strong>10 total cases</strong> across multiple levels:
+          Junior, Senior, Head, Chief, and CEO.
+        </p>
+
+        <div class="hero-buttons">
+          <a class="btn btn-primary" href="profiles.html">View Targets</a>
+          <a class="btn btn-secondary" href="rules.html">How to Play</a>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <h3>Mission Flow</h3>
+        <div class="steps">
+          <div class="step">
+            <strong>1. Choose a target</strong>
+            <span>Select Alice or Bob based on the current progression and challenge level.</span>
+          </div>
+          <div class="step">
+            <strong>2. Send through Thunderbird</strong>
+            <span>Write your email carefully and send it to the target mailbox.</span>
+          </div>
+          <div class="step">
+            <strong>3. AI checks the attempt</strong>
+            <span>The system validates the email against the active case conditions.</span>
+          </div>
+          <div class="step">
+            <strong>4. Retry or succeed</strong>
+            <span>If wrong, you receive guidance. If correct, you receive the flag and move forward.</span>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <h4>{{ total_targets }}</h4>
+            <p>Targets</p>
+          </div>
+          <div class="stat">
+            <h4>{{ total_cases }}</h4>
+            <p>Total Cases</p>
+          </div>
+          <div class="stat">
+            <h4>{{ total_levels }}</h4>
+            <p>Levels</p>
+          </div>
+          <div class="stat">
+            <h4>AI</h4>
+            <p>Validated</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="showcase">
+      <h3>Case Visual Showcase</h3>
+      <p>
+        Each case is supported by its own visual context to make the challenge more immersive.
+        The cases span school administration, urgent student services, transport incidents,
+        authorization requests, and executive-level verification scenarios.
+      </p>
+      <img src="case_showcase.png" alt="Raven Organization case showcase">
+    </section>
+
+    <section class="grid">
+      <div class="section-card">
+        <h3>Targets</h3>
+        <div class="mini-card">
+          <strong>Alice Johnson</strong>
+          <span>Handles verification, enrollment, and administrative student affairs cases across multiple levels.</span>
+        </div>
+        <div class="mini-card">
+          <strong>Bob Smith</strong>
+          <span>Handles urgent student services, emergency coordination, and sensitive administrative scenarios.</span>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>Level Structure</h3>
+        <div class="mini-card">
+          <strong>Junior</strong>
+          <span>3 cases — simple verification and basic contextual details.</span>
+        </div>
+        <div class="mini-card">
+          <strong>Senior</strong>
+          <span>3 cases — more complete context and stronger email structure.</span>
+        </div>
+        <div class="mini-card">
+          <strong>Head / Chief / CEO</strong>
+          <span>4 cases — formal, detailed, and high-stakes communication.</span>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>Challenge Style</h3>
+        <p>
+          This game is inspired by repeated-attempt challenge systems, but instead of a chat box,
+          the player interacts through a realistic email environment using Thunderbird and real
+          organization accounts.
+        </p>
+      </div>
+    </section>
+
+    <div class="footer">
+      Raven Organization Portal • Multi-Level Email Challenge
+    </div>
+  </div>
+</body>
+</html>

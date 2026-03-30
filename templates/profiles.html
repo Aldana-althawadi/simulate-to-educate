@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raven Organization | Profiles</title>
+  <style>
+    :root {
+      --bg: #09090f;
+      --panel: rgba(18, 18, 32, 0.88);
+      --panel-2: rgba(25, 25, 42, 0.92);
+      --line: rgba(111, 117, 255, 0.22);
+      --text: #eef2ff;
+      --muted: #a8b0d3;
+      --blue: #5b8cff;
+      --purple: #8b5cf6;
+      --shadow: 0 0 30px rgba(91, 140, 255, 0.18);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(91, 140, 255, 0.22), transparent 28%),
+        radial-gradient(circle at top right, rgba(139, 92, 246, 0.18), transparent 25%),
+        linear-gradient(180deg, #07070d 0%, #0c0c14 100%);
+      color: var(--text);
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 22px;
+      background: rgba(13, 13, 24, 0.78);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .brand h1 { margin: 0; font-size: 24px; }
+    .brand p { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+
+    .nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      background: rgba(91, 140, 255, 0.08);
+      border: 1px solid var(--line);
+    }
+
+    .header {
+      margin-top: 24px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+    }
+
+    .header h2 {
+      margin: 0 0 12px;
+      font-size: 40px;
+    }
+
+    .header p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 760px;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .profiles-grid {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .profile-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .profile-top {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .avatar {
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: bold;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .profile-info h3 {
+      margin: 0 0 6px;
+      font-size: 24px;
+    }
+
+    .profile-info p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .badge-row {
+      margin-top: 12px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(91, 140, 255, 0.12);
+      border: 1px solid rgba(91, 140, 255, 0.28);
+      color: #dbe7ff;
+    }
+
+    .section {
+      margin-top: 18px;
+      background: var(--panel-2);
+      border: 1px solid rgba(111, 117, 255, 0.16);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .section h4 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+
+    .section p, .section li {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .section ul {
+      padding-left: 18px;
+      margin: 0;
+    }
+
+    .tip-box {
+      margin-top: 24px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .tip-box h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 24px;
+    }
+
+    .tip-box p {
+      color: var(--muted);
+      margin-bottom: 10px;
+      line-height: 1.7;
+    }
+
+    .footer {
+      margin-top: 26px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      padding-bottom: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .profiles-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header h2 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <h1>Raven Organization</h1>
+        <p>Email Challenge Portal</p>
+      </div>
+
+      <nav class="nav">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('profiles') }}" class="active">Profiles</a>
+        <a href="{{ url_for('rules') }}">Rules</a>
+        <a href="{{ url_for('levels') }}">Levels</a>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      </nav>
+    </header>
+
+    <section class="header">
+      <h2>Staff Profiles</h2>
+      <p>
+        These are the active staff members inside Raven Organization. Both Alice and Bob
+        are used across multiple challenge levels, from Junior to CEO-level escalation scenarios.
+      </p>
+    </section>
+
+    <section class="profiles-grid">
+      <div class="profile-card">
+        <div class="profile-top">
+          <div class="avatar">A</div>
+          <div class="profile-info">
+            <h3>Alice Johnson</h3>
+            <p>Junior Staff Member</p>
+            <p>Student Affairs Department</p>
+            <div class="badge-row">
+              <span class="badge">Cases: 5</span>
+              <span class="badge">Levels: Junior → CEO</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h4>Profile Summary</h4>
+          <p>
+            Alice Johnson supports students with verification, enrollment, access requests,
+            and formal academic administration tasks.
+          </p>
+        </div>
+
+        <div class="section">
+          <h4>Typical Challenge Areas</h4>
+          <ul>
+            <li>Student ID verification</li>
+            <li>Attendance and parent communication</li>
+            <li>Enrollment confirmation</li>
+            <li>Authorization and escalation requests</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h4>Communication Style</h4>
+          <p>
+            Alice is helpful and professional, but as the levels increase, her cases require
+            more precise, formal, and well-structured emails.
+          </p>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-top">
+          <div class="avatar">B</div>
+          <div class="profile-info">
+            <h3>Bob Smith</h3>
+            <p>Administrative Officer</p>
+            <p>Student Services Department</p>
+            <div class="badge-row">
+              <span class="badge">Cases: 5</span>
+              <span class="badge">Levels: Junior → Head</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h4>Profile Summary</h4>
+          <p>
+            Bob Smith manages urgent student services, emergency coordination, medical and transport-related
+            requests, and sensitive operational communication.
+          </p>
+        </div>
+
+        <div class="section">
+          <h4>Typical Challenge Areas</h4>
+          <ul>
+            <li>Emergency hospital verification</li>
+            <li>Absence documentation</li>
+            <li>Emergency contact updates</li>
+            <li>Medical leave and transportation incidents</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h4>Communication Style</h4>
+          <p>
+            Bob expects structured, credible explanations. Higher-level cases require stronger
+            urgency handling and more complete verification details.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="tip-box">
+      <h3>How to Use These Profiles</h3>
+      <p>
+        These profiles provide public context only. They help you understand how to communicate with
+        each staff member, but they do not reveal the hidden validation rules.
+      </p>
+      <p>
+        Use Thunderbird to write emails that fit the staff member’s role, tone, and responsibilities.
+        As the level increases, the cases become more formal and demanding.
+      </p>
+    </section>
+
+    <div class="footer">
+      Raven Organization Portal • Staff Profiles
+    </div>
+  </div>
+</body>
+</html>

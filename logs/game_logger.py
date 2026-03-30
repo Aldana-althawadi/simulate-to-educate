@@ -5,7 +5,7 @@ from datetime import datetime
 LOG_FILE = "logs/game_log.csv"
 
 
-def log_game_event(player, target, case_id, status, message):
+def log_game_event(player, target, case_id, status, message, level="", flag=""):
     os.makedirs("logs", exist_ok=True)
     file_exists = os.path.isfile(LOG_FILE)
 
@@ -18,7 +18,9 @@ def log_game_event(player, target, case_id, status, message):
                 "player",
                 "target",
                 "case_id",
+                "level",
                 "status",
+                "flag",
                 "message"
             ])
 
@@ -27,6 +29,8 @@ def log_game_event(player, target, case_id, status, message):
             player,
             target,
             case_id,
+            level,
             "SUCCESS" if status else "FAILED",
+            flag if status else "",
             message.replace("\n", " ").strip()
         ])

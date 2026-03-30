@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raven Organization | Levels</title>
+  <style>
+    :root {
+      --bg: #09090f;
+      --panel: rgba(18, 18, 32, 0.88);
+      --panel-2: rgba(25, 25, 42, 0.92);
+      --line: rgba(111, 117, 255, 0.22);
+      --text: #eef2ff;
+      --muted: #a8b0d3;
+      --blue: #5b8cff;
+      --purple: #8b5cf6;
+      --green: #22c55e;
+      --red: #ef4444;
+      --yellow: #f59e0b;
+      --shadow: 0 0 30px rgba(91, 140, 255, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(91, 140, 255, 0.22), transparent 28%),
+        radial-gradient(circle at top right, rgba(139, 92, 246, 0.18), transparent 25%),
+        linear-gradient(180deg, #07070d 0%, #0c0c14 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 22px;
+      background: rgba(13, 13, 24, 0.78);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .brand p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.02);
+      transition: 0.2s ease;
+      font-size: 14px;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      border: 1px solid var(--line);
+      background: rgba(91, 140, 255, 0.08);
+      box-shadow: 0 0 18px rgba(91, 140, 255, 0.12);
+    }
+
+    .section {
+      margin-top: 24px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .section h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 30px;
+    }
+
+    .section p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 0;
+    }
+
+    .levels-grid {
+      margin-top: 20px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .level-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: var(--panel-2);
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(111,117,255,0.15);
+      transition: 0.2s ease;
+    }
+
+    .level-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(111,117,255,0.35);
+    }
+
+    .level-card.selected {
+      border: 1px solid rgba(91,140,255,0.55);
+      box-shadow: 0 0 18px rgba(91, 140, 255, 0.18);
+    }
+
+    .level-card.locked {
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    .level-title {
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+
+    .level-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .badge-row {
+      margin-top: 12px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      border: 1px solid;
+    }
+
+    .status-completed {
+      background: rgba(34, 197, 94, 0.12);
+      border-color: rgba(34, 197, 94, 0.35);
+      color: #bbf7d0;
+    }
+
+    .status-unlocked {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.35);
+      color: #fde68a;
+    }
+
+    .status-locked {
+      background: rgba(239, 68, 68, 0.12);
+      border-color: rgba(239, 68, 68, 0.35);
+      color: #fecaca;
+    }
+
+    .cases-grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+
+    .case-card {
+      background: var(--panel-2);
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(111,117,255,0.15);
+      transition: 0.2s ease;
+    }
+
+    .case-card.playable {
+      border-color: rgba(91,140,255,0.35);
+      box-shadow: 0 0 18px rgba(91, 140, 255, 0.12);
+    }
+
+    .case-card.completed {
+      border-color: rgba(34, 197, 94, 0.28);
+    }
+
+    .case-card.locked {
+      opacity: 0.65;
+    }
+
+    .case-card h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+
+    .case-meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 12px;
+      line-height: 1.7;
+    }
+
+    .case-desc {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .case-actions {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .case-link {
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: 0.2s ease;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: white;
+      box-shadow: 0 0 20px rgba(91, 140, 255, 0.20);
+    }
+
+    .case-link:hover {
+      transform: translateY(-1px);
+    }
+
+    .case-disabled {
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(111,117,255,0.15);
+      color: var(--muted);
+      display: inline-block;
+    }
+
+    .empty-box {
+      margin-top: 16px;
+      padding: 18px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(111,117,255,0.15);
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .footer {
+      margin-top: 30px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      padding-bottom: 18px;
+    }
+
+    @media (max-width: 800px) {
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <h1>Raven Organization</h1>
+        <p>Email Challenge Portal</p>
+      </div>
+
+      <nav class="nav">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('profiles') }}">Profiles</a>
+        <a href="{{ url_for('rules') }}">Rules</a>
+        <a href="{{ url_for('levels') }}" class="active">Levels</a>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      </nav>
+    </header>
+
+    <section class="section">
+      <h2>Game Progression</h2>
+      <p>
+        Choose a level to view its cases. Cases must be solved in order, one by one.
+        A level becomes completed only after all of its cases are solved.
+      </p>
+
+      <div class="levels-grid">
+        {% for lvl in progress.levels %}
+          <a
+            href="{{ url_for('levels', level=lvl.level) }}"
+            class="level-card {% if selected_level == lvl.level %}selected{% endif %} {% if not lvl.unlocked %}locked{% endif %}"
+          >
+            <div class="level-title">{{ lvl.level }} Level</div>
+            <div class="level-desc">
+              {{ lvl.done }} / {{ lvl.total }} cases completed
+            </div>
+
+            <div class="badge-row">
+              {% if lvl.completed %}
+                <span class="badge status-completed">Completed</span>
+              {% elif lvl.unlocked %}
+                <span class="badge status-unlocked">Unlocked</span>
+              {% else %}
+                <span class="badge status-locked">Locked</span>
+              {% endif %}
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>{{ selected_level }} Cases</h2>
+
+      {% if selected_level_unlocked %}
+        <div class="cases-grid">
+          {% for case in level_cases %}
+            <div class="case-card
+              {% if case.completed %}completed{% elif case.openable %}playable{% else %}locked{% endif %}">
+              <h3>{{ case.title }}</h3>
+
+              <div class="case-meta">
+                <div><strong>Target:</strong> {{ case.target_name }}</div>
+                <div><strong>Case ID:</strong> {{ case.case_id }}</div>
+                <div><strong>Order:</strong> {{ case.order_in_level }}</div>
+              </div>
+
+              <div class="case-desc">
+                {{ case.scenario }}
+              </div>
+
+              <div class="badge-row">
+                {% if case.completed %}
+                  <span class="badge status-completed">Completed</span>
+                {% elif case.openable %}
+                  <span class="badge status-unlocked">Current Case</span>
+                {% else %}
+                  <span class="badge status-locked">Locked</span>
+                {% endif %}
+              </div>
+
+              <div class="case-actions">
+                {% if case.completed %}
+                  <a class="case-link" href="{{ url_for('case_page', case_id=case.case_id) }}">
+                    View Case
+                  </a>
+                {% elif case.openable %}
+                  <a class="case-link" href="{{ url_for('case_page', case_id=case.case_id) }}">
+                    Open Case
+                  </a>
+                {% else %}
+                  <span class="case-disabled">Solve previous case first</span>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="empty-box">
+          This level is locked. Complete the previous level first.
+        </div>
+      {% endif %}
+    </section>
+
+    <div class="footer">
+      Raven Organization • Levels
+    </div>
+  </div>
+</body>
+</html>

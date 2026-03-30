@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raven Organization | {{ case.title }}</title>
+  <style>
+    :root {
+      --bg: #09090f;
+      --panel: rgba(18, 18, 32, 0.88);
+      --panel-2: rgba(25, 25, 42, 0.92);
+      --line: rgba(111, 117, 255, 0.22);
+      --text: #eef2ff;
+      --muted: #a8b0d3;
+      --blue: #5b8cff;
+      --purple: #8b5cf6;
+      --green: #22c55e;
+      --red: #ef4444;
+      --yellow: #f59e0b;
+      --shadow: 0 0 30px rgba(91, 140, 255, 0.18);
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(91, 140, 255, 0.22), transparent 28%),
+        radial-gradient(circle at top right, rgba(139, 92, 246, 0.18), transparent 25%),
+        linear-gradient(180deg, #07070d 0%, #0c0c14 100%);
+      color: var(--text);
+    }
+
+    .page {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .topbar, .section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 22px;
+    }
+
+    .nav a {
+      margin-left: 10px;
+      color: var(--text);
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 10px;
+    }
+
+    .nav a:hover {
+      background: rgba(91,140,255,0.1);
+      border: 1px solid var(--line);
+    }
+
+    .section {
+      margin-top: 24px;
+      padding: 24px;
+    }
+
+    .title {
+      margin: 0 0 10px;
+      font-size: 34px;
+    }
+
+    .meta {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 18px;
+    }
+
+    .hint-image img {
+      width: 100%;
+      max-height: 360px;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 1px solid rgba(111,117,255,0.18);
+      margin-top: 12px;
+    }
+
+    .button-row {
+      margin-top: 20px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      padding: 12px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: white;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+      color: white;
+    }
+
+    .result-box {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(111,117,255,0.18);
+      background: var(--panel-2);
+    }
+
+    .success {
+      border-left: 4px solid var(--green);
+    }
+
+    .failed {
+      border-left: 4px solid var(--red);
+    }
+
+    .locked {
+      border-left: 4px solid var(--yellow);
+    }
+
+    .status {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div><strong>Raven Organization</strong></div>
+      <nav class="nav">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('profiles') }}">Profiles</a>
+        <a href="{{ url_for('rules') }}">Rules</a>
+        <a href="{{ url_for('levels', level=case.level) }}">Levels</a>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      </nav>
+    </header>
+
+    <section class="section">
+      <h1 class="title">{{ case.title }}</h1>
+      <div class="meta">
+        <div><strong>Level:</strong> {{ case.level }}</div>
+        <div><strong>Target:</strong> {{ case.target_name }}</div>
+        <div><strong>Case ID:</strong> {{ case.case_id }}</div>
+      </div>
+
+      <p>{{ case.scenario }}</p>
+
+      {% if case.image %}
+        <div class="hint-image">
+          <img src="{{ url_for('static', filename=case.image) }}" alt="{{ case.title }}">
+        </div>
+      {% endif %}
+
+      <div class="button-row">
+        {% if case_completed %}
+          <span class="btn btn-secondary">Completed</span>
+          {% if next_case %}
+            <a class="btn btn-primary" href="{{ url_for('case_page', case_id=next_case.case_id) }}">Next Case</a>
+          {% else %}
+            <a class="btn btn-primary" href="{{ url_for('levels', level=case.level) }}">Back to Level</a>
+          {% endif %}
+        {% elif case_openable %}
+          <button id="checkAttemptBtn" class="btn btn-primary">Check My Attempt</button>
+        {% else %}
+          <span class="btn btn-secondary">Locked</span>
+        {% endif %}
+      </div>
+
+      <div id="liveMessage" class="muted" style="margin-top: 12px;"></div>
+
+      {% if feedback %}
+        <div class="result-box {% if feedback.status %}success{% else %}failed{% endif %}">
+          <div class="status">
+            {% if feedback.status %}SUCCESS{% else %}FAILED{% endif %}
+          </div>
+          <div>{{ feedback.message }}</div>
+        </div>
+      {% endif %}
+    </section>
+  </div>
+
+  {% if not case_completed and case_openable %}
+  <script>
+    document.getElementById("checkAttemptBtn").addEventListener("click", async function () {
+      const liveMessage = document.getElementById("liveMessage");
+      liveMessage.textContent = "Checking your latest email...";
+
+      try {
+        const response = await fetch("{{ url_for('process_case', case_id=case.case_id) }}", {
+          method: "POST"
+        });
+
+        const data = await response.json();
+
+        if (data.ok) {
+          liveMessage.textContent = data.message;
+          setTimeout(() => {
+            window.location.href = data.redirect_url;
+          }, 1200);
+        } else {
+          liveMessage.textContent = data.message || "Something went wrong.";
+        }
+      } catch (error) {
+        liveMessage.textContent = "Failed to process email.";
+      }
+    });
+  </script>
+  {% endif %}
+</body>
+</html>

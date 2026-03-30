@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raven Organization | Dashboard</title>
+  <style>
+    :root {
+      --bg: #09090f;
+      --panel: rgba(18, 18, 32, 0.88);
+      --panel-2: rgba(25, 25, 42, 0.92);
+      --line: rgba(111, 117, 255, 0.22);
+      --text: #eef2ff;
+      --muted: #a8b0d3;
+      --blue: #5b8cff;
+      --purple: #8b5cf6;
+      --green: #22c55e;
+      --yellow: #f59e0b;
+      --red: #ef4444;
+      --shadow: 0 0 30px rgba(91, 140, 255, 0.18);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(91, 140, 255, 0.22), transparent 28%),
+        radial-gradient(circle at top right, rgba(139, 92, 246, 0.18), transparent 25%),
+        linear-gradient(180deg, #07070d 0%, #0c0c14 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 22px;
+      background: rgba(13, 13, 24, 0.78);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .brand p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      background: rgba(91, 140, 255, 0.08);
+      border: 1px solid var(--line);
+    }
+
+    .hero {
+      margin-top: 24px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero h2 {
+      margin: 0 0 8px;
+      font-size: 34px;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .stats-grid {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .stat-card {
+      background: var(--panel-2);
+      border: 1px solid rgba(111, 117, 255, 0.15);
+      border-radius: 18px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .stat-card h3 {
+      margin: 0 0 8px;
+      font-size: 28px;
+    }
+
+    .stat-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .section {
+      margin-top: 24px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .section h3 {
+      margin-top: 0;
+      margin-bottom: 16px;
+      font-size: 24px;
+    }
+
+    .levels-grid,
+    .cases-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .levels-grid {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .cases-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .card {
+      background: var(--panel-2);
+      border: 1px solid rgba(111, 117, 255, 0.15);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .card h4 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .badge-row {
+      margin-top: 12px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      border: 1px solid;
+    }
+
+    .completed {
+      background: rgba(34, 197, 94, 0.12);
+      border-color: rgba(34, 197, 94, 0.35);
+      color: #bbf7d0;
+    }
+
+    .unlocked {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.35);
+      color: #fde68a;
+    }
+
+    .locked {
+      background: rgba(239, 68, 68, 0.12);
+      border-color: rgba(239, 68, 68, 0.35);
+      color: #fecaca;
+    }
+
+    .flag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .flag-item {
+      padding: 8px 12px;
+      border-radius: 12px;
+      background: rgba(91, 140, 255, 0.1);
+      border: 1px solid rgba(91, 140, 255, 0.3);
+      font-size: 13px;
+    }
+
+    .case-image {
+      margin-top: 12px;
+    }
+
+    .case-image img {
+      width: 100%;
+      max-height: 220px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid rgba(111, 117, 255, 0.18);
+    }
+
+    .empty {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer {
+      margin-top: 26px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      padding-bottom: 18px;
+    }
+
+    @media (max-width: 980px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <h1>Raven Organization</h1>
+        <p>Player Dashboard</p>
+      </div>
+
+      <nav class="nav">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('profiles') }}">Profiles</a>
+        <a href="{{ url_for('rules') }}">Rules</a>
+        <a href="{{ url_for('levels') }}">Levels</a>
+        <a href="{{ url_for('dashboard') }}" class="active">Dashboard</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h2>Welcome, {{ username }}</h2>
+      <p>
+        This page gives you a full overview of your progress, unlocked levels,
+        collected flags, and the current active case for each target.
+      </p>
+    </section>
+
+    <section class="stats-grid">
+      <div class="stat-card">
+        <h3>{{ progress.total_completed_cases }}</h3>
+        <p>Completed Cases</p>
+      </div>
+      <div class="stat-card">
+        <h3>{{ progress.total_flags }}</h3>
+        <p>Collected Flags</p>
+      </div>
+      <div class="stat-card">
+        <h3>{{ progress.unlocked_levels|length }}</h3>
+        <p>Unlocked Levels</p>
+      </div>
+      <div class="stat-card">
+        <h3>{{ active_cases|length }}</h3>
+        <p>Active Targets</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h3>Level Progress</h3>
+      <div class="levels-grid">
+        {% for lvl in progress.levels %}
+          <div class="card">
+            <h4>{{ lvl.level }}</h4>
+            <p>{{ lvl.done }} / {{ lvl.total }} cases completed</p>
+
+            <div class="badge-row">
+              {% if lvl.completed %}
+                <span class="badge completed">Completed</span>
+              {% elif lvl.unlocked %}
+                <span class="badge unlocked">Unlocked</span>
+              {% else %}
+                <span class="badge locked">Locked</span>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="section">
+      <h3>Collected Flags</h3>
+      {% if progress.collected_flags %}
+        <div class="flag-list">
+          {% for flag in progress.collected_flags %}
+            <div class="flag-item">{{ flag }}</div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="empty">No flags collected yet.</p>
+      {% endif %}
+    </section>
+
+    <section class="section">
+      <h3>Current Active Cases</h3>
+      {% if active_cases %}
+        <div class="cases-grid">
+          {% for case in active_cases %}
+            <div class="card">
+              <h4>{{ case.title }}</h4>
+              <p>
+                <strong>Target:</strong> {{ case.target_name }}<br>
+                <strong>Level:</strong> {{ case.level }}<br>
+                <strong>Case ID:</strong> {{ case.case_id }}
+              </p>
+
+              <div class="badge-row">
+                {% if case.unlocked %}
+                  <span class="badge unlocked">Available</span>
+                {% else %}
+                  <span class="badge locked">Locked</span>
+                {% endif %}
+              </div>
+
+              {% if case.image %}
+                <div class="case-image">
+                  <img src="{{ url_for('static', filename=case.image) }}" alt="{{ case.title }}">
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="empty">No active cases available.</p>
+      {% endif %}
+    </section>
+
+    <div class="footer">
+      Raven Organization Portal • Dashboard
+    </div>
+  </div>
+</body>
+</html>
