@@ -134,35 +134,46 @@ Through this approach, users learn both **professional communication skills** an
 
 ---
 ## 📁 Project Structure
-PhishArena/
+phishArena/
 │
-├── app.py # Main Flask application
+├── app.py                     # Main Flask application (routes, logic)
 │
-├── cases/ # Game scenarios and helpers
-│ ├── profiles.py # All cases and levels
-│ ├── helpers.py # Case navigation logic
+├── cases/                     # Game scenarios and progression logic
+│   ├── profiles.py            # All cases (levels, scenarios, required info)
+│   ├── helpers.py             # Case navigation (get_active_case, advance_case)
 │
-├── mail/ # Email handling
-│ ├── mail_reader.py # Reads emails from Maildir
-│ ├── smtp_sender.py # Sends responses via SMTP
+├── mail/                      # Email handling (core system)
+│   ├── mail_reader.py         # Reads emails from Maildir with filtering
+│   ├── smtp_sender.py         # Sends AI responses via SMTP (Postfix)
 │
-├── llm/ # AI evaluation logic
-│ ├── checker.py # Email validation and feedback
+├── llm/                       # AI / evaluation pipeline
+│   ├── checker.py             # Main validation logic
+│   ├── pipeline.py            # Processing pipeline
+│   ├── llm_handler.py         # LLM interaction (Ollama)
+│   ├── rag.py                 # Retrieval (RAG)
+│   ├── reply_generator.py     # Generates responses
+│   ├── post_processor.py      # Output validation
+│   ├── utils.py               # Helper functions
+│   ├── logger.py              # LLM logging
+│   └── ...                    # Additional supporting modules
 │
-├── logs/ # Game logs
-│ ├── game_logger.py # Stores results
+├── logs/                      # Game logs and tracking
+│   ├── game_logger.py         # Stores player results and history
 │
-├── templates/ # HTML pages
-│ ├── index.html
-│ ├── levels.html
-│ ├── case.html
-│ ├── dashboard.html
-│ ├── rules.html
+├── templates/                 # Frontend (Flask HTML pages)
+│   ├── index.html             # Home page
+│   ├── levels.html            # Levels selection
+│   ├── case.html              # Case gameplay page
+│   ├── dashboard.html         # Progress and stats
+│   ├── rules.html             # Game rules and instructions
+│   ├── profiles.html          # Target profiles (Alice, Bob)
 │
-├── static/ # Static assets
-│ ├── images/
+├── static/                    # Static assets
+│   ├── images/                # Case hints, avatars, logos
 │
-└── README.md
+├── env/                       # Virtual environment (not pushed to GitHub)
+
+
 
 ---
 
