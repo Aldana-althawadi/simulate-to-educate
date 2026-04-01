@@ -133,11 +133,6 @@ A message is treated as suspicious when it is:
 Through this approach, users learn both **professional communication skills** and how **phishing-like messages behave**, by experiencing how weak or misleading emails fail in realistic scenarios.
 
 ---
-
-## 🏗 System Architecture
-PhishArena is built using a combination of web technologies and real email infrastructure to simulate realistic communication scenarios.
-
----
 ## 📁 Project Structure
 PhishArena/
 │
