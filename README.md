@@ -189,7 +189,7 @@ phishArena/
 ## 🏆 Academic Context
 
 This project was developed as a final-year cybersecurity project focused on combining practical email communication training with phishing-awareness concepts using real-world infrastructure.
-
+University of Bahrain, College of Information Technology 2026
 ---
 
 ## 📌 Notes
