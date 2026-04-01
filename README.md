@@ -14,13 +14,22 @@ PhishArena combines professional email writing practice with phishing-awareness 
 
 ### 1. Clone
 ```bash
-git clone
+git clone 
 cd PhishArena
 ```
 ### 2. Create venv
+```bash
+python3 -m venv env
+source env/bin/activate
+```
 ### 3. Install
+```bash
+pip install flask
+```
 ### 4. Run
-
+```bash
+python3 app.py
+```
 ---
 
 ## 📧 Thunderbird Configuration
