@@ -174,49 +174,37 @@ PhishArena is built using a combination of web technologies and real email infra
 - Returns feedback as legitimate or suspicious  
 
 
-#### 📂 Mail Storage (Maildir)
-
-Emails are stored locally in:/home/<user>/Maildir/
-
-
-### 🔄 Email Processing Flow
-
-1. Player sends email using Thunderbird  
-2. Postfix receives the email  
-3. Dovecot stores it in Maildir  
-4. Flask backend retrieves the email  
-5. Email is filtered using:
-   - sender (player)
-   - receiver (target)
-   - case ID in subject  
-6. LLM checker evaluates the email  
-7. System sends a response back via SMTP  
-8. Player receives feedback in Thunderbird  
-
-
-### 🎯 Design Decision
-
-To avoid conflicts, the system does **not rely on the latest email only**.  
-Instead, it filters emails based on:
-
-- Sender (player account)  
-- Receiver (target persona)  
-- Case identifier in subject  
-
-This ensures accurate and conflict-free processing without requiring multiple user accounts.
-
 ---
-
-## 📊 Features
-- 🎮 Multi-level game structure (Junior → CEO)
-- 📧 Real email interaction using Thunderbird (no web forms)
-- 🧠 Case-based learning with realistic scenarios
-- 🤖 AI-powered feedback system
-- 📊 Progress tracking via dashboard
-- 🔓 Level unlocking system
-- ⚠️ Phishing-awareness through behavior, not direct detection
-- 🔍 Email filtering using sender, receiver, and case ID
-- 🖼 Visual hints and profile-based context
+## 📁 Project Structure
+PhishArena/
+│
+├── app.py # Main Flask application
+│
+├── cases/ # Game scenarios and helpers
+│ ├── profiles.py # All cases and levels
+│ ├── helpers.py # Case navigation logic
+│
+├── mail/ # Email handling
+│ ├── mail_reader.py # Reads emails from Maildir
+│ ├── smtp_sender.py # Sends responses via SMTP
+│
+├── llm/ # AI evaluation logic
+│ ├── checker.py # Email validation and feedback
+│
+├── logs/ # Game logs
+│ ├── game_logger.py # Stores results
+│
+├── templates/ # HTML pages
+│ ├── index.html
+│ ├── levels.html
+│ ├── case.html
+│ ├── dashboard.html
+│ ├── rules.html
+│
+├── static/ # Static assets
+│ ├── images/
+│
+└── README.md
 
 ---
 
