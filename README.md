@@ -209,11 +209,40 @@ This ensures accurate and conflict-free processing without requiring multiple us
 ---
 
 ## 📊 Features
-
----
-
-## 🚀 Future Improvements
+- 🎮 Multi-level game structure (Junior → CEO)
+- 📧 Real email interaction using Thunderbird (no web forms)
+- 🧠 Case-based learning with realistic scenarios
+- 🤖 AI-powered feedback system
+- 📊 Progress tracking via dashboard
+- 🔓 Level unlocking system
+- ⚠️ Phishing-awareness through behavior, not direct detection
+- 🔍 Email filtering using sender, receiver, and case ID
+- 🖼 Visual hints and profile-based context
 
 ---
 
 ## 👥 Contributors
+
+- Aldana Althawadi
+- Ghufran Sheikh
+- Haya Alkaabi  
+
+
+---
+
+## 🏆 Academic Context
+
+This project was developed as a final-year cybersecurity project focused on combining practical email communication training with phishing-awareness concepts using real-world infrastructure.
+
+---
+
+## 📌 Notes
+
+This system is designed for **educational purposes only**.  
+All scenarios are simulated within a controlled environment.
+
+---
+
+# 🎯 PhishArena  
+Train smart. Think deeper. Communicate better.
+
